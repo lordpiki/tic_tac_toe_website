@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tic Tac Toe</title>
+    <!-- Add your CSS and JS file references here -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Content from child templates will be inserted here -->
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
