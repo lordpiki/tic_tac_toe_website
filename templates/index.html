@@ -1,17 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Tic Tac Toe</h1>
 <div class="board">
-    <div class="cell" data-position="A1"></div>
-    <div class="cell" data-position="A2"></div>
-    <div class="cell" data-position="A3"></div>
-    <div class="cell" data-position="B1"></div>
-    <div class="cell" data-position="B2"></div>
-    <div class="cell" data-position="B3"></div>
-    <div class="cell" data-position="C1"></div>
-    <div class="cell" data-position="C2"></div>
-    <div class="cell" data-position="C3"></div>
+    <div class="row">
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+    </div>
+    <div class="row">
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+    </div>
+    <div class="row">
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+    </div>
 </div>
-<!-- Add any other elements for game information, status, etc. -->
 {% endblock %}

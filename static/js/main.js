@@ -1,45 +1,56 @@
-// JavaScript code for handling game interactions and AJAX requests
 document.addEventListener('DOMContentLoaded', function() {
     const boardCells = document.querySelectorAll('.cell');
-    boardCells.forEach(cell => cell.addEventListener('click', makeMove));
+    const currentBoard = Array(9).fill(0); // Initialize the board state with -1 (empty cells)
+    let turn = 1;
+
+    boardCells.forEach((cell, index) => {
+        cell.addEventListener('click', function() {
+            if (!cell.classList.contains('occupied')) {
+                const move = index;
+                if (turn === 1)
+                {
+                    currentBoard[move] = 1; // Update the board state for player's move
+                    cell.textContent = 'X';
+                    turn = 2;
+                }
+                else
+                {
+                    currentBoard[move] = 2; // Update the board state for player's move
+                    cell.textContent = 'O';
+                    turn = 1;
+                    return;
+                }
+                const player_turn = turn;
+
+                cell.classList.add('occupied');
+
+                // Make an AJAX POST request to the Flask server to play the player's move
+                fetch('/api/play', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ turn: player_turn, board: currentBoard })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Process the response from the Flask server
+                    const botMove = data.bot_move;
+                    currentBoard[botMove] = 0; // Update the board state for bot's move
+
+                    const botCell = boardCells[botMove];
+                    botCell.textContent = 'O';
+                    botCell.classList.add('occupied');
+
+                    // You can add more conditions to handle other game states as needed.
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        });
+    });
 });
-
-function makeMove(event) {
-    const cell = event.target;
-    if (!cell.classList.contains('occupied')) {
-        const move = cell.dataset.position;
-        // Make an AJAX POST request to the Flask server to play the player's move
-        fetch('/api/play', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ move: move })
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Process the response from the Flask server
-            const botMove = data.bot_move;
-            const gameStatus = data.game_status;
-
-            // Update the board based on the server's response
-            if (botMove) {
-                const botCell = document.querySelector(`[data-position='${botMove}']`);
-                botCell.textContent = 'O';
-                botCell.classList.add('occupied');
-            }
-
-            // Check the game status and update the UI accordingly
-            if (gameStatus === 'player_win') {
-                // Handle player win
-            } else if (gameStatus === 'bot_win') {
-                // Handle bot win
-            } else if (gameStatus === 'draw') {
-                // Handle draw
-            }
-
-            // You can add more conditions to handle other game states as needed.
-        })
-        .catch(error => console.error('Error:', error));
-    }
-}

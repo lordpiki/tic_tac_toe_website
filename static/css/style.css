@@ -1,24 +1,37 @@
-/* Add your CSS styles here */
-/* Customize the look and feel of the Tic Tac Toe board and game interface */
+body {
+    font-family: Arial, sans-serif;
+}
 
-/* Set the styles for the Tic Tac Toe board */
+.container {
+    width: 180px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .board {
     display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
-    gap: 5px;
+    grid-template-rows: repeat(3, 60px);
+    grid-template-columns: repeat(3, 60px);
+    gap: 1px;
+    margin-top: 10px;
+}
+
+.row {
+    display: contents; /* Use 'contents' to let the cells span in the grid */
 }
 
 .cell {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #ccc;
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 100px;
-    height: 100px;
+    justify-content: center;
     font-size: 24px;
-    font-weight: bold;
-    border: 2px solid #000;
     cursor: pointer;
 }
 
-/* Optional: Add any other styles or effects you want for the game */
+.cell.occupied {
+    pointer-events: none;
+}
