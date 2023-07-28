@@ -2,19 +2,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const boardCells = document.querySelectorAll('.cell');
     const currentBoard = Array(9).fill(0); // Initialize the board state with -1 (empty cells)
     let turn = 1;
+    let count = 0;
 
     boardCells.forEach((cell, index) => {
         cell.addEventListener('click', function() {
             if (!cell.classList.contains('occupied')) {
                 const move = index;
+                count++;
+                if (count >= 8)
+                {
+                    return;
+                }
                 if (turn === 1)
                 {
                     currentBoard[move] = 1; // Update the board state for player's move
                     cell.textContent = 'X';
-                    turn = 2;
                 }
                 else
                 {
+                    return;
                     currentBoard[move] = 2; // Update the board state for player's move
                     cell.textContent = 'O';
                     turn = 1;
@@ -41,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(data => {
                     // Process the response from the Flask server
                     const botMove = data.bot_move;
-                    currentBoard[botMove] = 0; // Update the board state for bot's move
+                    currentBoard[botMove] = 2; // Update the board state for bot's move
 
                     const botCell = boardCells[botMove];
                     botCell.textContent = 'O';

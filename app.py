@@ -24,10 +24,14 @@ def play_move():
     print("res: ")
     print(result.stdout)
     print(result.stderr)
+    if 0 not in current_board:
+        print("herer")
+        # insert code here
+
 
     # Parse the C program's response to get the bot's move
     try:
-        bot_move = parse_bot_move(result.stdout)
+        bot_move = parse_bot_move(result.returncode)
     except ValueError:
         # Handle the case where the C program returned an invalid response or an error occurred
         return jsonify({'error': 'An error occurred during the game.'}), 500
@@ -42,7 +46,7 @@ def parse_bot_move(stdout):
     # This function parses the C program's response to extract the bot's move
     # Replace this with your actual logic based on your C program's output format
     # For example, if the C program returns just the bot's move as a single number (0-8), you can simply return it.
-    return int(stdout.strip())
+    return int(stdout)
 
 if __name__ == '__main__':
     app.run(debug=True)
