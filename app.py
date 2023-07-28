@@ -26,6 +26,7 @@ def play_move():
     print(result.stderr)
     if 0 not in current_board:
         print("herer")
+        return render_template("base.html", board=current_board)
         # insert code here
 
 
