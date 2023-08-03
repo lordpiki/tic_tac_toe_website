@@ -20,7 +20,7 @@ def play_move():
 
     # Replace the path to the compiled tic_tac_toe.exe file with the actual path on your system
     # The subprocess call will execute the C program and pass the current board and player's move as arguments
-    result = subprocess.run(['C:\\Users\\Miki\\Documents\\Computer Science\\GitHub\\tic_tac_toe_website\\Tic-Tac-Toe Bot\\Debug\\Tic-Tac-Toe Bot.exe', current_board_str, str(turn)], capture_output=True, text=True)
+    result = subprocess.run(['Tic-Tac-Toe Bot/Debug/Tic-Tac-Toe Bot.exe', current_board_str, str(turn)], capture_output=True, text=True)
     print("res: ")
     print(result.stdout)
     print(result.stderr)

@@ -1,35 +1,72 @@
 body {
     font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #39a5d9, #51e5a8);
+
+
 }
 
 .container {
-    width: 180px;
+    justify-content: center;
+
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
 }
 
+.board-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .board {
     display: grid;
-    grid-template-rows: repeat(3, 60px);
-    grid-template-columns: repeat(3, 60px);
-    gap: 1px;
-    margin-top: 10px;
+
+    margin-top: 50px;
+    grid-template-rows: repeat(3, 160px);
+    grid-template-columns: repeat(3, 160px);
+    background: transparent;
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.3); /* Add a faded shadow behind the board */
+    border-radius: 30px; /* Add rounded corners to the board */
+    border: transparent;
+    transition: transform 0.2s ease;
+
 }
+
+
 
 .row {
     display: contents; /* Use 'contents' to let the cells span in the grid */
 }
 
 .cell {
-    width: 60px;
-    height: 60px;
-    border: 1px solid #ccc;
+    width: 160px;
+    height: 160px;
+    border: 1px solid gray;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: 60px;
     cursor: pointer;
+}
+
+/* Corner-specific styles */
+.top-left {
+    border-top-left-radius: 30px; /* Adjust the radius value as needed */
+
+}
+
+.top-right {
+    border-top-right-radius: 30px; /* Adjust the radius value as needed */
+}
+
+.bottom-left {
+    border-bottom-left-radius: 30px; /* Adjust the radius value as needed */
+}
+
+.bottom-right {
+    border-bottom-right-radius: 30px; /* Adjust the radius value as needed */
 }
 
 .cell.occupied {
@@ -38,4 +75,11 @@ body {
 
 .text {
     size: 60px;
+}
+
+.reset-button {
+}
+
+.reset-button:hover {
+  transform: translateY(-3px); /* Adjust the value to control the pop-out distance */
 }
