@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request, jsonify
 import subprocess
+import os
 
 app = Flask(__name__)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+os.chdir(current_dir)
 
 @app.route('/')
 def index():
@@ -11,21 +14,20 @@ def index():
 def play_move():
     current_board = request.json['board']
     turn = request.json['turn']
+
     print("current board: ", current_board)
     print("turn:", turn)
-
     # Format the current board as a space-separated string of numbers
     current_board_str = ' '.join(str(move) for move in current_board)
     print("send board", current_board_str)
 
     # Replace the path to the compiled tic_tac_toe.exe file with the actual path on your system
     # The subprocess call will execute the C program and pass the current board and player's move as arguments
-    result = subprocess.run(['Tic-Tac-Toe Bot/Debug/Tic-Tac-Toe Bot.exe', current_board_str, str(turn)], capture_output=True, text=True)
+    result = subprocess.run(['Tic-Tac-Toe Bot.exe', current_board_str, str(turn)], capture_output=True, text=True)
     print("res: ")
     print(result.stdout)
     print(result.stderr)
     if 0 not in current_board:
-        print("herer")
         return render_template("base.html", board=current_board)
         # insert code here
 
